@@ -4,6 +4,15 @@ const createElement = (arr) => {
     return htmlElements.join(' ');
 }
 
+// spice function
+
+function pronounceWord(word) {
+  const utterance = new SpeechSynthesisUtterance(word);
+  utterance.lang = "en-EN"; // English
+  window.speechSynthesis.speak(utterance);
+}
+
+// spinner function
 const manageSpinner = (status)=> {
     if(status == true){
         document.getElementById("spinner").classList.remove('hidden');
@@ -99,7 +108,7 @@ const displayLoadWord = (words)=>{
           <h3 class="font-bangla text-3xl font-bold">${word.pronunciation ?word.pronunciation : 'উচ্চারণ পাওয়া যায়নি'}</h3>
           <div class="flex justify-between items-center">
             <button onclick="loadWordDetail(${word.id})" class="bg-[#1a90ff15] p-4 rounded-sm cursor-pointer hover:bg-[#1a90ffd2]"><i class="fa-solid fa-circle-info"></i></button>
-            <button class="bg-[#1a90ff15] p-4 rounded-sm cursor-pointer hover:bg-[#1a90ffd2]"><i class="fa-solid fa-volume-high"></i></button>
+            <button onclick="pronounceWord('${word.word}')" class="bg-[#1a90ff15] p-4 rounded-sm cursor-pointer hover:bg-[#1a90ffd2]"><i class="fa-solid fa-volume-high"></i></button>
           </div>
         </div>
         `
