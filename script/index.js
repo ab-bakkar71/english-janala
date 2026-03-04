@@ -4,6 +4,17 @@ const createElement = (arr) => {
     return htmlElements.join(' ');
 }
 
+const manageSpinner = (status)=> {
+    if(status == true){
+        document.getElementById("spinner").classList.remove('hidden');
+        document.getElementById("word-container").classList.add('hidden');
+    }
+    else{
+        document.getElementById("spinner").classList.add('hidden');
+         document.getElementById("word-container").classList.remove('hidden');
+    }
+}
+
 //  All Levels funcation
 const loadLessons = ()=>{
     const AllLevelUrl = 'https://openapi.programming-hero.com/api/levels/all'
@@ -19,6 +30,7 @@ const removeActive =()=>{
 }
 // Words by Levels function
 const loadWord =(id)=>{
+    manageSpinner(true);
     const wordUrl = `https://openapi.programming-hero.com/api/level/${id}`
     fetch(wordUrl)
     .then(rsc=> rsc.json())
@@ -54,6 +66,7 @@ const displayWordDetail= (word)=>{
         <h4 class="text-2xl font-semibold mb-2">Parts Of Speech</h4>
         <p class="mb-7">"${word.partsOfSpeech? word.partsOfSpeech : 'partsOfSpeech পাওয়া যায়নি'}"</p>
         <div>
+        <h4 class="text-2xl font-semibold font-bangla mb-2">সমার্থক শব্দ গুলো</h4>
           ${createElement(word.synonyms)}
         </div>
       </div>
@@ -91,12 +104,8 @@ const displayLoadWord = (words)=>{
         </div>
         `
         wordContainer.append(wordDiv)
-    })
-
-
-    
-
-
+    });
+manageSpinner(false);
 };
 
 
