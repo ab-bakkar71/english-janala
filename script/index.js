@@ -129,3 +129,20 @@ const displayLessons= (lessons)=>{
 };
 
 loadLessons()
+
+// search function
+
+document.getElementById('btn-search').addEventListener("click", ()=>{
+    removeActive();
+    const input = document.getElementById('input-search');
+    const searchValue = input.value.trim().toLowerCase();
+    
+
+    fetch('https://openapi.programming-hero.com/api/words/all')
+    .then(rec => rec.json())
+    .then(search=>{
+        const allWords = search.data;
+        const filterWords = allWords.filter(word=>word.word.toLowerCase().includes(searchValue));
+        displayLoadWord(filterWords);
+    })
+})
